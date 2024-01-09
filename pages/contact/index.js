@@ -1,8 +1,10 @@
+import { useRouter } from "next/router";
 import { getClient } from "../../libs/client";
 import { useState } from "react";
 
 const PostForm = () => {
   const client = getClient();
+  const router = useRouter();
   const [formData, setFormData] = useState({
     name: "",
     mail: "",
@@ -83,6 +85,9 @@ const PostForm = () => {
       });
 
       console.log("Post successful:", response);
+      // 送信成功後、/thanks ページにリダイレクト
+      router.push("/thanks");
+
     } catch (error) {
       console.error("Error posting data:", error);
     }
