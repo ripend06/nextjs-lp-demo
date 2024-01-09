@@ -1,9 +1,11 @@
-import { client } from '@/libs/client';
+import { getClient } from '@/libs/client';
 import styles from '@/styles/Home.module.css'
-import Demo from './components/demo';
+// import Demo from './components/demo';
+
 
 //SSG
 export const getStaticProps = async() => {
+  const client = getClient();
   const data = await client.get({ endpoint: "lp-test "});
   //console.log(data);  // データ全体を表示
   // console.log(data.contents);  // データ全体を表示
@@ -38,7 +40,7 @@ export default function Home({ lpdata }) {
             </div>
             <div>================================================================================================================</div>
             <div>================================================================================================================</div>
-            <Demo lpdata={lpdata}/>
+            {/* <Demo lpdata={lpdata}/> */}
           </div>
         ))}
       </div>
