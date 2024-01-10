@@ -1,12 +1,14 @@
 import { getClient } from '@/libs/client';
 import styles from '@/styles/Home.module.css'
 import Image from 'next/image';
-// import Demo from './components/demo';
+import Qa from './components/Qa';
+import Demo from './components/demo';
 
 
 //SSG
 export const getStaticProps = async() => {
   const client = getClient();
+  //LPデータ
   const data = await client.get({ endpoint: "lp-test "});
   //console.log(data);  // データ全体を表示
   // console.log(data.contents);  // データ全体を表示
@@ -14,17 +16,23 @@ export const getStaticProps = async() => {
   // console.log(data.contents[0].top.image);  // データ全体を表示
   // console.log(data.contents[0].top.image.url);  // データ全体を表示
   //console.log(data.contents[0].fvBottom);  // データ全体を表示
+
+  //QAデータ
+  const qaData = await client.get({ endpoint: "qanda"});
+  // console.log(qaData);
+  // console.log(qaData.contents[0].qa);
+
   return {
     props: {
       lpdata: data,
       //lpdataImage: data.contents.image,
+      qaData: qaData,
     },
   };
 };
 
 
-
-export default function Home({ lpdata }) {
+export default function Home({ lpdata, qaData }) {
   return (
     <>
       <div className="body">
@@ -54,6 +62,8 @@ export default function Home({ lpdata }) {
               height={750}
               alt=''
             />
+            {/* QAコンポーネント */}
+            <Qa qaData={qaData}/>
           </div>
         ))}
       </div>
