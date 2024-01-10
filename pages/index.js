@@ -1,5 +1,6 @@
 import { getClient } from '@/libs/client';
 import styles from '@/styles/Home.module.css'
+import Image from 'next/image';
 // import Demo from './components/demo';
 
 
@@ -26,13 +27,19 @@ export const getStaticProps = async() => {
 export default function Home({ lpdata }) {
   return (
     <>
-      <div>
+      <div className="body">
         {lpdata.contents.map((lpdata) => (
           <div key={lpdata.id}>
             <div>{lpdata.fv.head}</div>
             <div>{lpdata.fv.head_small}</div>
             <div>{lpdata.fv.description}</div>
             <img src={lpdata.fv.image.url} alt="Image" />
+            <Image
+              src={lpdata.fv.image.url}
+              width={750}
+              height={750}
+              alt=''
+            />
             <div class={lpdata.fvBottom.fieldId}>
               <div>{lpdata.fvBottom.fvBottom1}</div>
               <div dangerouslySetInnerHTML={{ __html: lpdata.fvBottom.fvBottom1 }} />
@@ -41,6 +48,12 @@ export default function Home({ lpdata }) {
             <div>================================================================================================================</div>
             <div>================================================================================================================</div>
             {/* <Demo lpdata={lpdata}/> */}
+            <Image
+              src={lpdata.fv.image.url}
+              width={750}
+              height={750}
+              alt=''
+            />
           </div>
         ))}
       </div>
