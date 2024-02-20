@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Form</title>
+</head>
+<body>
+
+<div id="app">
+  <form id="contactForm" onsubmit="handleSubmit(event)">
+    <label for="name">お名前:</label><br>
+    <input type="text" id="name" name="name"><br>
+    <label for="mail">メールアドレス:</label><br>
+    <input type="email" id="mail" name="mail"><br>
+    <label for="textarea">お問い合わせ内容:</label><br>
+    <textarea id="textarea" name="textarea"></textarea><br>
+    <button type="submit">送信する</button>
+  </form>
+</div>
+
+<!-- microcms-js-sdk ライブラリのインポート -->
+<script src="https://unpkg.com/microcms-js-sdk@latest/dist/umd/microcms-js-sdk.js"></script>
+<script>
+const { createClient } = microcms;
+
+const client = createClient({
+  serviceDomain: 'inunk38plg',
+  apiKey: 'sWQnvYnxg7i5Yv8nzEfY6IsqLID5IpeymhQB',
+});
+
+function handleSubmit(event) {
+  event.preventDefault();
+  
+  const formData = new FormData(event.target);
+  const dataToSend = {};
+  
+  formData.forEach((value, key) => {
+    dataToSend[key] = value;
+  });
+
+  client.create({
+    endpoint: 'contact',
+    content: dataToSend,
+  })
+  .then((res) => {
+    console.log('Success:', res.id);
+    // 成功したら何らかの処理を行う
+    window.location.href = '/lp/thanksLp/index.html?id=' + res.id;
+  })
+  .catch((error) => {
+    console.error('Error:', error);
+    // エラーが発生した場合の処理
+  });
+}
+</script>
+
+</body>
+</html>

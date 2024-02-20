@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thanks</title>
+</head>
+<body>
+
+<h1>お問い合わせありがとうございます！</h1>
+
+<div id="app">
+  <p>ID: <span id="contactId"></span></p>
+</div>
+
+<script>
+// URL パラメータから ID を取得して表示
+const params = new URLSearchParams(window.location.search);
+document.getElementById('contactId').textContent = params.get('id');
+</script>
+
+</body>
+</html>
